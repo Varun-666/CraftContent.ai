@@ -1,0 +1,1 @@
+"""CraftCopy AI application package."""

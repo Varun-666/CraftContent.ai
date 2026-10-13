@@ -1,0 +1,7 @@
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.30,<1.0
+pydantic>=2.7,<3.0
+# Install these to enable local open-weight model inference.
+# torch>=2.3
+# transformers>=4.45,<5.0
+# accelerate>=0.34

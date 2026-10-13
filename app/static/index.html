@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f5">
+  <meta name="description" content="CraftCopy AI helps independent makers draft accurate product listings with open-weight AI.">
+  <title>CraftCopy AI — Product copy for independent makers</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="CraftCopy AI home"><span class="brand-mark">C</span><span>CraftCopy <span class="brand-ai">AI</span></span></a>
+    <div class="topbar-right"><span class="status-dot"></span><span id="model-status">Checking model status</span><a href="https://github.com/" target="_blank" rel="noreferrer" class="header-link">Open source</a></div>
+  </header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">A writing assistant for independent makers</p>
+      <h1>Make the product.<br><span>We'll help with the words.</span></h1>
+      <p class="intro-copy">Turn your product details into a clear listing, a social caption, and searchable tags. You stay in control of every word before it goes live.</p>
+    </section>
+
+    <section class="workspace" aria-label="Listing generator">
+      <div class="form-panel panel">
+        <div class="panel-heading"><div><p class="step-label">STEP 01</p><h2>Tell us about your product</h2></div><span class="small-label">Required fields marked *</span></div>
+        <form id="listing-form">
+          <label for="product_name">Product name <span>*</span></label>
+          <input id="product_name" name="product_name" maxlength="100" placeholder="e.g. Crochet daisy tote bag" required minlength="2">
+          <div class="field-row">
+            <div><label for="category">Product category</label><input id="category" name="category" maxlength="80" placeholder="e.g. Bags and accessories"></div>
+            <div><label for="materials">Materials</label><input id="materials" name="materials" maxlength="160" placeholder="e.g. Cotton yarn, wooden button"></div>
+          </div>
+          <div class="field-row">
+            <div><label for="dimensions">Size or dimensions</label><input id="dimensions" name="dimensions" maxlength="100" placeholder="e.g. 25 × 20 cm"></div>
+            <div><label for="price">Price (optional)</label><input id="price" name="price" maxlength="40" placeholder="e.g. ₹850"></div>
+          </div>
+          <label for="features">Features and details</label>
+          <textarea id="features" name="features" maxlength="300" rows="3" placeholder="What makes this item useful or distinctive? Include only details you can verify."></textarea>
+          <label for="audience">Intended customer</label>
+          <input id="audience" name="audience" maxlength="120" placeholder="e.g. People looking for a handmade everyday bag">
+          <div class="field-row">
+            <div><label for="platform">Where will you use it?</label><select id="platform" name="platform"><option>General product page</option><option>Instagram</option><option>Etsy-style listing</option></select></div>
+            <div><label for="tone">Writing style</label><select id="tone" name="tone"><option>Warm and clear</option><option>Minimal</option><option>Playful</option><option>Premium</option></select></div>
+          </div>
+          <button class="primary-button" id="generate-button" type="submit"><span>Generate listing copy</span><span aria-hidden="true">→</span></button>
+          <p class="privacy-note">Your product details are processed by this app. In local-model mode, generation runs on the machine hosting the app. No account or paid API key is required.</p>
+        </form>
+      </div>
+
+      <div class="results-panel panel" aria-live="polite">
+        <div class="panel-heading"><div><p class="step-label">STEP 02</p><h2>Your draft</h2></div><span id="result-badge" class="result-badge">Awaiting details</span></div>
+        <div id="empty-state" class="empty-state"><div class="empty-illustration"><div class="paper paper-back"></div><div class="paper paper-front"><span></span><span></span><span></span><span class="short-line"></span></div></div><h3>Your listing starts here</h3><p>Fill in the product details and generate a draft. Your results will appear in this panel, ready for review and editing.</p></div>
+        <div id="loading-state" class="loading-state hidden"><div class="loader"></div><p>Preparing your draft</p><span>This may take a little longer when the model loads for the first time.</span></div>
+        <div id="results" class="results hidden">
+          <section class="result-section"><div class="result-title-row"><h3>Product title</h3><button class="copy-button" data-copy="title" type="button">Copy</button></div><textarea id="out-title" rows="2" aria-label="Generated product title"></textarea></section>
+          <section class="result-section"><div class="result-title-row"><h3>Product description</h3><button class="copy-button" data-copy="description" type="button">Copy</button></div><textarea id="out-description" rows="6" aria-label="Generated product description"></textarea></section>
+          <section class="result-section"><div class="result-title-row"><h3>Social caption</h3><button class="copy-button" data-copy="social_caption" type="button">Copy</button></div><textarea id="out-social_caption" rows="4" aria-label="Generated social caption"></textarea></section>
+          <section class="result-section"><div class="result-title-row"><h3>Search tags</h3><button class="copy-button" data-copy="tags" type="button">Copy</button></div><div id="out-tags" class="tag-list"></div></section>
+          <section class="result-section"><div class="result-title-row"><h3>Image alt text</h3><button class="copy-button" data-copy="alt_text" type="button">Copy</button></div><textarea id="out-alt_text" rows="2" aria-label="Generated image alt text"></textarea></section>
+          <p id="notice" class="notice"></p>
+          <button id="copy-all" class="secondary-button" type="button">Copy all content</button>
+        </div>
+        <div id="error-state" class="error-state hidden" role="alert"></div>
+      </div>
+    </section>
+    <section class="principles"><div><span class="principle-number">01</span><h3>Seller-led</h3><p>You supply the facts. Review and edit every draft before publishing.</p></div><div><span class="principle-number">02</span><h3>Open by design</h3><p>Built around an open-weight model that can be inspected, replaced, and run locally.</p></div><div><span class="principle-number">03</span><h3>Made for small shops</h3><p>Focused on the repetitive writing tasks that slow independent sellers down.</p></div></section>
+  </main>
+  <footer><span>CraftCopy AI</span><span>Open-source software for independent makers.</span><a href="/docs" target="_blank" rel="noreferrer">API documentation</a></footer>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
